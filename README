@@ -1,0 +1,30 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=3515
+
+* What is VimOutliner?
+
+VimOutliner is an outline processor with many of the same features as Grandview, More, Thinktank, Ecco, etc. Features include tree expand/collapse, tree promotion/demotion, level sensitive colors, interoutline linking, and body text.
+
+What sets VimOutliner apart from the rest is that it&#039s been constructed from the ground up for fast and easy authoring.  Keystrokes are quick and easy, especially for someone knowing the Vim editor. The mouse is completely unnecessary (but is supported to the extent that Vim supports the mouse). Many of the VimOutliner commands start with a double comma because that&#039s very quick to type.
+
+Many outliners are prettier than VimOutliner. Most other outliners are more intuitive for the newbie not knowing Vim. Many outliners are more featureful than VimOutliner (although VimOutliner gains features monthly and is already very powerful).  Some outliners are faster on lookup than VimOutliner. But as far as we know, NO outliner is faster at getting information out of your mind and into an outline than VimOutliner.
+
+VimOutliner will always give you lightning fast authoring. That&#039s our basic, underlying philosophy, and will never change, no matter what features are added.
+
+* Usage
+
+VimOutliner has been reported to help with the following tasks:
+  - Project managment.
+  - Password wallet => http://img71.imageshack.us/my.php?image=vimpasswordwalletpngvi4.png
+  - To-do lists.
+  - Account and cash book.
+  - &#039Plot device&#039 for writing novels.
+  - Inventory control.
+  - Hierarchical database.
+  - Web site managment.
+
+* Characteristics
+
+  - Fast.
+  - Extensible through plugins.
+  - Many post-processing scripts allow exporting to multiple formats.
+  - Extensive documentation.
