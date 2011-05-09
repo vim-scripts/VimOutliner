@@ -6,9 +6,7 @@ VimOutliner is an outline processor with many of the same features as Grandview,
 
 What sets VimOutliner apart from the rest is that it&#039s been constructed from the ground up for fast and easy authoring.  Keystrokes are quick and easy, especially for someone knowing the Vim editor. The mouse is completely unnecessary (but is supported to the extent that Vim supports the mouse). Many of the VimOutliner commands start with a double comma because that&#039s very quick to type.
 
-Many outliners are prettier than VimOutliner. Most other outliners are more intuitive for the newbie not knowing Vim. Many outliners are more featureful than VimOutliner (although VimOutliner gains features monthly and is already very powerful).  Some outliners are faster on lookup than VimOutliner. But as far as we know, NO outliner is faster at getting information out of your mind and into an outline than VimOutliner.
-
-VimOutliner will always give you lightning fast authoring. That&#039s our basic, underlying philosophy, and will never change, no matter what features are added.
+Many of the VimOutliner commands start with a double comma ",," because that's very quick to type. All VimOutliner files have the ".otl" extension. For an overview of the VimOutliner commands you can type ":h vo_cheatsheet" when you have opened an otl file. For help on VimOutliner type ":h vo"
 
 * Usage
 

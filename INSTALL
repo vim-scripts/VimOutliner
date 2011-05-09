@@ -12,9 +12,23 @@ Automatic Method
 
 The automatic installation targets Unix-compatible platforms:
 
+From tar archive
+
     $ tar xzvf vimoutliner-0.3.x.tar.gz
     $ cd vimoutliner
     $ sh install.sh
+
+From zip archive 
+
+    $ unzip vimoutliner-0.3.x.zip
+    $ cd vimoutliner-0.3.x
+    $ sh install.sh 
+
+From vimball
+
+Open vimoutliner-0.3.x.vba with Vim and type the following command to install in your home vim folder:
+
+:so % 
 
 First you can decide whether to install the VimOutliner files or abort the
 process leaving everything unchanged.  Assuming you confirmed the
@@ -22,7 +36,8 @@ installation, the script creates the necessary directory tree and copies the
 files which provide the core functionality and documentation.
 
 With the second question you decide whether you want to install some brand new
-add-ons, currently implementing hoisting and checkboxes.
+add-ons, currently implementing checkboxes(enabled), hoisting(disabled) 
+and smart paste(disabled), as well as several useful external scripts in the vimoutliner/scripts folder.
 
 
 Updating
@@ -92,7 +107,8 @@ the vim help system.  Start vim and execute the following command:
     :helptags $HOME/.vim/doc
 
 At this point, VimOutliner should be functional.  Type ":help vo" to get
-started.
+started. To get a quick overview of all VimOutliner commands you can view the 
+cheatsheet with ":help vo_cheatsheet". 
 
 
 Color Schemes
@@ -184,7 +200,7 @@ Note:
 
 Debian Installation
 
-Debian does include Vim Outliner as a package. However some Debian version
+Debian does include Vim Outliner as a package. However some Debian versions
 require this line to be added to your .vimrc file:
 
     syntax on

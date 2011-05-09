@@ -1,6 +1,6 @@
 "#########################################################################
 "# syntax/vo_base.vim: VimOutliner syntax highlighting
-"# version 0.3.0
+"# version 0.3.6
 "#   Copyright (C) 2001,2003 by Steve Litt (slitt@troubleshooters.com)
 "#
 "#   This program is free software; you can redistribute it and/or modify
@@ -129,7 +129,7 @@ if &background == "light"
 	hi FoldColumn guifg=darkcyan guibg=bg	ctermfg=cyan ctermbg=white
 
 	" colors for experimental spelling error highlighting
-	" this only works for spellfix.vim with will be cease to exist soon
+	" this only works for spellfix.vim which will cease to exist soon
 	hi spellErr gui=underline guifg=darkred cterm=underline ctermfg=darkred
 	hi BadWord gui=underline guifg=darkred cterm=underline ctermfg=darkred
 " Dark background {{{2
@@ -207,7 +207,7 @@ else
 	hi FoldColumn guifg=darkcyan guibg=bg	ctermfg=cyan ctermbg=black
 
 	" colors for experimental spelling error highlighting
-	" this only works for spellfix.vim with will be cease to exist soon
+	" this only works for spellfix.vim which will cease to exist soon
 	hi spellErr gui=underline guifg=yellow	cterm=underline ctermfg=yellow
 	hi BadWord gui=underline guifg=yellow	cterm=underline ctermfg=yellow
 endif
