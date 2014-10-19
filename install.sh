@@ -5,21 +5,13 @@ vimdir=$homedir/.vim
 vodir=$vimdir/vimoutliner
 OS=`uname`
 
-#BACKUP FILE NAMES
-bext=`date +_%T_%F.old`
-if [ $OS = Linux ] ; then 
-       backupargs="-bS $bext"
-elif [ $OS = FreeBSD ] ; then
-       backupargs="-bB $bext"
-else backupargs="";
-fi
+backupargs=""
 
 
 #SOME FUNCTIONS
 sure () {
 	read REPLY
-	echo
-	test $REPLY = "y" || test $REPLY = "Y"
+	echo test $REPLY = "y" || test $REPLY = "Y"
 }
 
 make_dir () {
@@ -52,10 +44,7 @@ copydir () {
 cat <<EOT
 Vim Outliner Installation
     This script is safe for installing Vim Outliner and for upgrading an
-    existing Vim Outliner installation. Existing files will be backed-up
-    with this extension: $bext. This will simplify
-    recovery of any of the old files.
-
+    existing Vim Outliner installation. 
 EOT
 echo -n "Would you like to continue (y/N) ? "
 sure || exit
@@ -69,6 +58,7 @@ make_dir $vimdir/syntax
 make_dir $vimdir/ftplugin
 make_dir $vimdir/ftdetect
 make_dir $vimdir/doc
+make_dir $vimdir/colors
 make_dir $vodir
 make_dir $vodir/plugin
 make_dir $vodir/scripts
@@ -108,18 +98,43 @@ egrep -lq "runtime\! ftdetect/\*.vim" $homedir/.vim/filetype.vim || \
        }
 if [ $modified -eq 0 ] ; then echo "    not modified"; fi
 
-#COPY FILES AND BACKUP ANY EXISTING FILES
-echo "installing files and making backups if necessary (*$bext)"
+#CLEANUP OLD INSTALLATIONS
+echo "cleaning up old (<0.3.5) installations"
+files=`find $vimdir -iname "vo_*"`
+for file in $files; do
+	echo "removing $file"
+	rm -v $file
+done
+
+#CLEANUP OLD BACKUPS
+if [ -z $backupargs ]; then
+	echo "cleaning up old backups"
+	files=`find $vimdir -iname "vo*.old"`
+	for file in $files; do
+		echo "removing $file"
+		rm -v $file
+	done
+	files2=`find $vodir -iname "*.old"`
+	for file in $files; do
+		echo "removing $file"
+		rm -v $file
+	done
+fi
+
+#COPY FILES
+echo "installing files"
 copyfile syntax/votl.vim $vimdir
 copyfile ftplugin/votl.vim $vimdir
 copyfile ftdetect/votl.vim $vimdir
-copyfile doc/votl_readme.txt $vimdir
+copyfile colors/vo_light.vim $vimdir
+copyfile colors/vo_dark.vim $vimdir
+copyfile doc/votl.txt $vimdir
 copyfile doc/votl_cheatsheet.txt $vimdir
-copyfile vimoutliner/vimoutlinerrc $vimdir
+copyfile vimoutlinerrc $vodir
 copyfile vimoutliner/scripts/votl_maketags.pl $vimdir
 
 #INCORPORATE HELP DOCUMENTATION
-echo installing documentation
+echo "Installing vimoutliner documentation"
 vim -c "helptags $HOME/.vim/doc" -c q
 
 #INSTALL THE ADD-ONS
@@ -141,7 +156,8 @@ if sure; then
 fi
 
 #ALL DONE
-echo Installation complete
+echo ""
+echo "Installation of Vimoutliner is now complete"
 
 cat <<EOT
 

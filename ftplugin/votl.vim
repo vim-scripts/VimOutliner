@@ -1,8 +1,8 @@
 "#########################################################################
-"# ftplugin/vo_base.vim: VimOutliner functions, commands and settings
+"# ftplugin/votl.vim: VimOutliner functions, commands and settings
 "# version 0.3.7
 "#   Copyright (C) 2001,2003 by Steve Litt (slitt@troubleshooters.com)
-"#   Copyright (C) 2004 by Noel Henson (noel@noels-lab.com)
+"#   Copyright (C) 2004,2014 by Noel Henson (noelwhenson@gmail.com)
 "#
 "#   This program is free software; you can redistribute it and/or modify
 "#   it under the terms of the GNU General Public License as published by
@@ -15,8 +15,7 @@
 "#   GNU General Public License for more details.
 "#
 "#   You should have received a copy of the GNU General Public License
-"#   along with this program; if not, write to the Free Software
-"#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+"#   along with this program; if not, see <http://www.gnu.org/licenses/>.
 "#
 "# Steve Litt, slitt@troubleshooters.com, http://www.troubleshooters.com
 "#########################################################################
@@ -29,12 +28,7 @@
 "let b:did_ftplugin = 1
 let b:current_syntax = "outliner"
 
-" User Preferences {{{1
-
-"let maplocalleader = ",,"		" this is prepended to VO key mappings
-
-"setlocal ignorecase			" searches ignore case
-"setlocal smartcase			" searches use smart case
+" Default Preferences {{{1
 
 let use_space_colon=0
 
@@ -48,11 +42,11 @@ setlocal wrap
 setlocal tw=78
 setlocal noexpandtab
 setlocal tabstop=4			" tabstop and shiftwidth must match
-setlocal shiftwidth=4		" values from 2 to 8 work well
+setlocal shiftwidth=4			" values from 2 to 8 work well
 "setlocal nosmarttab
 "setlocal softtabstop=0 
 setlocal foldlevel=20
-setlocal foldcolumn=1		" turns on "+" at the beginning of close folds
+setlocal foldcolumn=1			" turns on "+" at the beginning of close folds
 setlocal foldmethod=expr
 setlocal foldexpr=MyFoldLevel(v:lnum)
 setlocal indentexpr=
@@ -546,70 +540,6 @@ set foldtext=MyFoldText()
 endif " if !exists("loaded_vimoutliner_functions")
 " End Vim Outliner Functions
 
-" Vim Outliner Key Mappings {{{1
-" insert the date
-nmap <silent><buffer> <localleader>d $:call InsertSpaceDate()<cr>
-imap <silent><buffer> <localleader>d ~<esc>x:call InsertDate(0)<cr>a
-nmap <silent><buffer> <localleader>D ^:call InsertDate(1)<cr>a <esc>
-
-
-" insert the time
-nmap <silent><buffer> <localleader>t $:call InsertSpaceTime()<cr>
-imap <silent><buffer> <localleader>t ~<esc>x:call InsertTime(0)<cr>a
-nmap <silent><buffer> <localleader>T ^:call InsertTime(1)<cr>a <esc>
-
-" sort a list naturally
-map <silent> <buffer> <localleader>s :silent call SortChildren(0)<cr>
-" sort a list, but you supply the options
-map <silent> <buffer> <localleader>S :silent call SortChildren(1)<cr>
-
-" invoke the file explorer
-map <silent><buffer> <localleader>f :e .<cr>
-imap <silent><buffer> <localleader>f :e .<cr>
-
-" Insert a fence for segmented lists.
-" I also use this divider to create a <hr> when converting to html
-map <silent><buffer> <localleader>- o----------------------------------------0
-imap <silent><buffer> <localleader>- ----------------------------------------<cr>
-
-" switch document between the two types of bodytext styles
-if use_space_colon == 1
-  "   First, convert document to the marker style
-  map <silent><buffer><localleader>b :%s/\(^\t*\) :/\1/e<cr>:%s/\(^\t*\) /\1 : /e<cr>:let @/=""<cr>
-  "   Now, convert document to the space style
-  map <silent><buffer><localleader>B :%s/\(^\t*\) :/\1/e<cr>:let @/=""<cr>
-else
-  "   First, convert document to the marker style
-  map <silent><buffer><localleader>b :%s/\(^\t*\):/\1/e<cr>:%s/\(^\t*\) /\1: /e<cr>:let @/=""<cr>
-  "   Now, convert document to the space style
-  map <silent><buffer><localleader>B :%s/\(^\t*\):/\1/e<cr>:let @/=""<cr>
-endif
-
-" Steve's additional mappings start here
-map <silent><buffer>   <C-K>         <C-]>
-map <silent><buffer>   <C-N>         <C-T>
-map <silent><buffer>   <localleader>0           :set foldlevel=99999<CR>
-map <silent><buffer>   <localleader>9           :set foldlevel=8<CR>
-map <silent><buffer>   <localleader>8           :set foldlevel=7<CR>
-map <silent><buffer>   <localleader>7           :set foldlevel=6<CR>
-map <silent><buffer>   <localleader>6           :set foldlevel=5<CR>
-map <silent><buffer>   <localleader>5           :set foldlevel=4<CR>
-map <silent><buffer>   <localleader>4           :set foldlevel=3<CR>
-map <silent><buffer>   <localleader>3           :set foldlevel=2<CR>
-map <silent><buffer>   <localleader>2           :set foldlevel=1<CR>
-map <silent><buffer>   <localleader>1           :set foldlevel=0<CR>
-map <silent><buffer>   <localleader>,,          :runtime vimoutliner/vimoutlinerrc<CR>
-map! <silent><buffer>  <localleader>w           <Esc>:w<CR>a
-nmap <silent><buffer>  <localleader>e           :call Spawn()<cr>
-" Steve's additional mappings end here
-
-" Placeholders for already assigned but non-functional commands
-map <silent><buffer> <localleader>h :echo "VimOutliner reserved command: ,,h"<cr>
-imap <silent><buffer> <localleader>h :echo "VimOutliner reserved command: ,,h"<cr>
-map <silent><buffer> <localleader>H :echo "VimOutliner reserved command: ,,H"<cr>
-imap <silent><buffer> <localleader>H :echo "VimOutliner reserved command: ,,H"<cr>
-
-" End of Vim Outliner Key Mappings }}}1
 " Menu Entries {{{1
 " VO menu
 amenu &VO.Expand\ Level\ &1 :set foldlevel=0<cr>
@@ -640,15 +570,15 @@ amenu &VO.-Sep2- :
 amenu &VO.&Color\ Scheme :popup Edit.Color\ Scheme<cr>
 amenu &VO.-Sep3- :
 amenu &VO.&Help.&Index :he vo<cr>
-amenu &VO.&Help.&,,\ Commands :he vo-command<cr>
-amenu &VO.&Help.&Checkboxes :he vo-checkbox<cr>
-amenu &VO.&Help.&Hoisting :he vo-hoisting<cr>
+amenu &VO.&Help.&,,\ Commands :he votl-command<cr>
+amenu &VO.&Help.&Checkboxes :he votl-checkbox<cr>
+amenu &VO.&Help.&Hoisting :he votl-hoisting<cr>
 amenu &Help.-Sep1- :
 " Help menu additions
-amenu &Help.&Vim\ Outliner.&Index :he vo<cr>
-amenu &Help.&Vim\ Outliner.&,,\ Commands :he vo-command<cr>
-amenu &Help.&Vim\ Outliner.&Checkboxes :he vo-checkbox<cr>
-amenu &Help.&Vim\ Outliner.&Hoisting :he vo-hoisting<cr>
+amenu &Help.&Vim\ Outliner.&Index :he votl<cr>
+amenu &Help.&Vim\ Outliner.&,,\ Commands :he votl-command<cr>
+amenu &Help.&Vim\ Outliner.&Checkboxes :he votl-checkbox<cr>
+amenu &Help.&Vim\ Outliner.&Hoisting :he votl-hoisting<cr>
 "}}}1
 " Auto-commands {{{1
 if !exists("autocommand_vo_loaded")
@@ -685,6 +615,65 @@ if exists('g:vo_modules_load')
 	endfor
 unlet! vo_module
 endif
+
+" Vim Outliner Key Mappings {{{1
+" insert the date
+nmap <silent><buffer> <localleader>d $:call InsertSpaceDate()<cr>
+imap <silent><buffer> <localleader>d ~<esc>x:call InsertDate(0)<cr>a
+nmap <silent><buffer> <localleader>D ^:call InsertDate(1)<cr>a <esc>
+
+" insert the time
+nmap <silent><buffer> <localleader>t $:call InsertSpaceTime()<cr>
+imap <silent><buffer> <localleader>t ~<esc>x:call InsertTime(0)<cr>a
+nmap <silent><buffer> <localleader>T ^:call InsertTime(1)<cr>a <esc>
+
+" sort a list naturally
+map <silent> <buffer> <localleader>s :silent call SortChildren(0)<cr>
+" sort a list, but you supply the options
+map <silent> <buffer> <localleader>S :silent call SortChildren(1)<cr>
+
+" invoke the file explorer
+map <silent><buffer> <localleader>f :e .<cr>
+imap <silent><buffer> <localleader>f :e .<cr>
+
+" Insert a fence for segmented lists.
+" this divider is used by otl2html.py to create '<hr>'
+map <silent><buffer> <localleader>- o----------------------------------------0
+imap <silent><buffer> <localleader>- ----------------------------------------<cr>
+
+" switch document between the two types of bodytext styles
+if use_space_colon == 1
+  "   First, convert document to the marker style
+  map <silent><buffer><localleader>b :%s/\(^\t*\) :/\1/e<cr>:%s/\(^\t*\) /\1 : /e<cr>:let @/=""<cr>
+  "   Now, convert document to the space style
+  map <silent><buffer><localleader>B :%s/\(^\t*\) :/\1/e<cr>:let @/=""<cr>
+else
+  "   First, convert document to the marker style
+  map <silent><buffer><localleader>b :%s/\(^\t*\):/\1/e<cr>:%s/\(^\t*\) /\1: /e<cr>:let @/=""<cr>
+  "   Now, convert document to the space style
+  map <silent><buffer><localleader>B :%s/\(^\t*\):/\1/e<cr>:let @/=""<cr>
+endif
+
+" Steve's additional mappings start here
+map <silent><buffer>   <C-K>         <C-]>
+map <silent><buffer>   <C-N>         <C-T>
+map <silent><buffer>   <localleader>0           :set foldlevel=99999<CR>
+map <silent><buffer>   <localleader>9           :set foldlevel=8<CR>
+map <silent><buffer>   <localleader>8           :set foldlevel=7<CR>
+map <silent><buffer>   <localleader>7           :set foldlevel=6<CR>
+map <silent><buffer>   <localleader>6           :set foldlevel=5<CR>
+map <silent><buffer>   <localleader>5           :set foldlevel=4<CR>
+map <silent><buffer>   <localleader>4           :set foldlevel=3<CR>
+map <silent><buffer>   <localleader>3           :set foldlevel=2<CR>
+map <silent><buffer>   <localleader>2           :set foldlevel=1<CR>
+map <silent><buffer>   <localleader>1           :set foldlevel=0<CR>
+"next line commented out due to hard-coded nature and ancient, nonexistent file
+"map <silent><buffer>   <localleader>,,          :runtime vimoutliner/vimoutlinerrc<CR>
+map! <silent><buffer>  <localleader>w           <Esc>:w<CR>a
+nmap <silent><buffer>  <localleader>e           :call Spawn()<cr>
+" Steve's additional mappings end here
+
+" End of Vim Outliner Key Mappings }}}1
 
 " The End
 " vim600: set foldmethod=marker foldlevel=0:
